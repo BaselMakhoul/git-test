@@ -1,0 +1,24 @@
+{
+  "name": "git-test",
+  "version": "1.0.0",
+  "description": "THis is a test directory to learn Git and Node",
+  "main": "index.html",
+  "scripts": {
+    "start": "npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Basel_Makhoul@bitbucket.org/basel_makhoul/git-test.git"
+  },
+  "author": "Basel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/basel_makhoul/git-test/issues"
+  },
+  "homepage": "https://bitbucket.org/basel_makhoul/git-test#readme",
+  "devDependencies": {
+    "lite-server": "^2.2.0"
+  }
+}

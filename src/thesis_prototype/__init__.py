@@ -15,9 +15,12 @@ from .models import (
     ValidationStatus,
     WorkflowState,
 )
+from .conflict_detection import ConflictDetectionService, ConflictDetectorConfig
 from .registry import InMemoryIssueRegistry, IssueHistoryEvent
 
 __all__ = [
+    "ConflictDetectionService",
+    "ConflictDetectorConfig",
     "AIArtifactType",
     "AIExplanationArtifact",
     "ConflictIssue",

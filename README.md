@@ -39,15 +39,31 @@ The `src/thesis_prototype/registry.py` module provides `InMemoryIssueRegistry` f
 
 `examples/seed_data.py` creates a small in-memory example dataset for local testing and demonstration.
 
+## Step 2: Conflict Detection Service (T34)
+
+`src/thesis_prototype/conflict_detection.py` adds a lightweight, explainable conflict detector that currently covers:
+
+- **Direct duplicate detection** using explicit label normalization (trim, lowercase, collapse repeated spaces).
+- **Near-duplicate detection** using deterministic `difflib.SequenceMatcher` similarity with a configurable threshold.
+- **Overlapping/concurrent change conflicts** for overlap-sensitive operations and fields when changes are within an active window or tied to unresolved context.
+
+Current scope intentionally does **not** cover:
+
+- SHACL or schema validation execution
+- reviewer/governance decision logic
+- ontology reasoning/inference
+- AI generation or automated ontology modification
+
+The design is intentionally minimal and thesis-friendly: every rule is explicit, deterministic, and easy to describe/cite in methodology and implementation chapters.
+
 ## Intentionally left for later steps
 
-To stay within Step 1 scope, this implementation intentionally does **not** include:
+After Step 2, this prototype still intentionally does **not** include:
 
-- conflict or duplicate detection algorithms
-- SHACL execution engine integration
+- SHACL execution engine integration (planned for validation service step)
 - governance policy decision logic beyond data capture/state updates
 - AI generation logic
 - dashboards/UI
 - full external API behavior
 
-These models and registry are designed to be consumed by those services in later steps.
+The current models, in-memory registry, and conflict detector are designed to be consumed by those services in later steps.

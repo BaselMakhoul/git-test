@@ -105,6 +105,12 @@ class InMemoryIssueRegistry:
         self._ensure_present(change_id, self._changes, "change")
         return [issue for issue in self._issues.values() if issue.originating_change_id == change_id]
 
+    def list_changes(self) -> List[OntologyChange]:
+        return list(self._changes.values())
+
+    def list_issues(self) -> List[ConflictIssue]:
+        return list(self._issues.values())
+
     def get_validation_results_for_change(self, change_id: str) -> List[ValidationResult]:
         self._ensure_present(change_id, self._changes, "change")
         return [result for result in self._validation_results.values() if result.change_id == change_id]

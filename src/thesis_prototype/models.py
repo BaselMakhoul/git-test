@@ -84,6 +84,8 @@ class OntologyChange:
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "timestamp", _normalize_utc(self.timestamp, "timestamp"))
+        if not isinstance(self.operation_type, OperationType):
+            raise ValueError("operation_type must be a valid OperationType")
         if not self.change_id.strip():
             raise ValueError("change_id is required")
         if not self.contributor_id.strip():
@@ -111,6 +113,10 @@ class ValidationResult:
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "created_at", _normalize_utc(self.created_at, "created_at"))
+        if not isinstance(self.rule_type, RuleType):
+            raise ValueError("rule_type must be a valid RuleType")
+        if not isinstance(self.status, ValidationStatus):
+            raise ValueError("status must be a valid ValidationStatus")
         if not self.validation_result_id.strip():
             raise ValueError("validation_result_id is required")
         if not self.change_id.strip():
@@ -130,6 +136,8 @@ class ReviewDecision:
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "decided_at", _normalize_utc(self.decided_at, "decided_at"))
+        if not isinstance(self.decision_type, ReviewerDecisionType):
+            raise ValueError("decision_type must be a valid ReviewerDecisionType")
         if not self.decision_id.strip():
             raise ValueError("decision_id is required")
         if not self.issue_id.strip():
@@ -152,6 +160,8 @@ class AIExplanationArtifact:
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "created_at", _normalize_utc(self.created_at, "created_at"))
+        if not isinstance(self.explanation_type, AIArtifactType):
+            raise ValueError("explanation_type must be a valid AIArtifactType")
         if not self.explanation_id.strip():
             raise ValueError("explanation_id is required")
         if not self.generated_text.strip():
@@ -180,6 +190,14 @@ class ConflictIssue:
     def __post_init__(self) -> None:
         self.created_at = _normalize_utc(self.created_at, "created_at")
         self.updated_at = _normalize_utc(self.updated_at, "updated_at")
+        if not isinstance(self.issue_category, IssueCategory):
+            raise ValueError("issue_category must be a valid IssueCategory")
+        if not isinstance(self.severity, SeverityLevel):
+            raise ValueError("severity must be a valid SeverityLevel")
+        if not isinstance(self.current_workflow_state, WorkflowState):
+            raise ValueError("current_workflow_state must be a valid WorkflowState")
+        if self.reviewer_action is not None and not isinstance(self.reviewer_action, ReviewerDecisionType):
+            raise ValueError("reviewer_action must be a valid ReviewerDecisionType when provided")
         if not self.issue_id.strip():
             raise ValueError("issue_id is required")
         if not self.originating_change_id.strip():

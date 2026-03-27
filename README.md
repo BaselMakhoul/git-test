@@ -47,6 +47,8 @@ Current code modules map to thesis architecture as follows:
   Duplicate, near-duplicate, and overlap/concurrent conflict analysis (`ConflictDetectionService`).
 - `src/thesis_prototype/validation_service.py`  
   Deterministic rule-based validation pipeline (`ValidationService`) producing structured `ValidationResult` records.
+- `src/thesis_prototype/demo_backend.py` + `src/thesis_prototype/demo_api.py` + `src/thesis_prototype/demo_ui.py`  
+  Thin demo interaction layer (local backend facade, optional FastAPI routes, and Streamlit views).
 - Future modules (T36+)  
   Governance/review, optional bounded AI explanation, dashboards, and integration orchestration.
 
@@ -62,6 +64,7 @@ The current prototype can:
 - validate changes against explicit deterministic rules (required label/description, cardinality, domain/range, naming convention)
 - avoid uncontrolled duplicate-issue spam on repeated detection runs (deterministic fingerprinting/idempotent behavior)
 - avoid uncontrolled duplicate validation-result spam on repeated validation runs for unchanged inputs (deterministic result IDs)
+- run a local demo UI to submit changes, trigger conflict detection/validation, and inspect registry traceability in one interface
 
 ## 6) Current assumptions and limitations
 
@@ -84,6 +87,11 @@ This repository uses `pytest`.
 pytest -q
 ```
 
+### Run demo backend/API tests
+```bash
+pytest -q tests/test_demo_backend_api.py
+```
+
 ### Run only defense-stage domain/registry tests (P1)
 ```bash
 pytest -q tests/test_defense_domain_registry.py
@@ -92,6 +100,11 @@ pytest -q tests/test_defense_domain_registry.py
 ### Run only defense-stage conflict-detection tests (P2)
 ```bash
 pytest -q tests/test_defense_conflict_detection.py
+```
+
+### Run defense-stage validation tests
+```bash
+pytest -q tests/test_defense_validation_service.py
 ```
 
 ### What defense-stage tests are intended to prove
@@ -108,6 +121,43 @@ Recommended implementation/extension sequence:
 4. governance/review
 5. optional AI explanation
 6. integration + evaluation
+
+## 10) Local demo UI
+
+This project includes a thin demo UI for Chapter 5 screenshots and walkthroughs.
+
+### Views/screens
+- **Change Submission**: create and store `OntologyChange` payloads
+- **Conflict Detection**: run direct / near / overlap / all checks
+- **Validation**: run deterministic validation rules for a selected change
+- **Registry / Traceability**: inspect stored changes, issues, validation results, and issue history
+
+### Run commands
+Install demo dependencies (optional extras):
+```bash
+pip install -e .[demo]
+```
+
+Run Streamlit demo UI:
+```bash
+streamlit run src/thesis_prototype/demo_ui.py
+```
+
+Run FastAPI demo server (optional if you want HTTP endpoints):
+```bash
+uvicorn thesis_prototype.demo_api:app --reload
+```
+
+### Supported now
+- submit structured ontology changes
+- trigger conflict detection and validation on stored changes
+- inspect traceability/state in a readable registry summary view
+
+### Intentionally not yet implemented
+- governance/review actions or routing
+- AI explanation generation UI
+- full WebProtégé integration
+- production-grade authentication, concurrency, and durability
 
 ## 9) Defense-readiness note
 

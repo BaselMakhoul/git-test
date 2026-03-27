@@ -23,6 +23,7 @@ from .validation_service import (
     ValidationRuleDefinition,
     ValidationService,
 )
+from .demo_backend import DemoBackend
 from .registry import InMemoryIssueRegistry, IssueHistoryEvent
 
 __all__ = [
@@ -33,6 +34,7 @@ __all__ = [
     "ValidationRuleDefinition",
     "ValidationAdapter",
     "LightweightValidationAdapter",
+    "DemoBackend",
     "AIArtifactType",
     "AIExplanationArtifact",
     "ConflictIssue",

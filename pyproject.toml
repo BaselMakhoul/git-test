@@ -8,6 +8,9 @@ version = "0.1.0"
 description = "Foundational data model for thesis prototype"
 requires-python = ">=3.10"
 
+[project.optional-dependencies]
+demo = ["fastapi>=0.110", "uvicorn>=0.29", "streamlit>=1.30"]
+
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]

@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thesis-prototype"
+version = "0.1.0"
+description = "Foundational data model for thesis prototype"
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+demo = [
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "streamlit>=1.30",
+    "openpyxl>=3.1",
+    "reportlab>=4.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
